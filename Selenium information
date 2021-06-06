@@ -1,0 +1,79 @@
+Docker Users:
+
+I would suggest you to use docker for selenium grid if possible.
+
+Save this content in a file called - docker-compse.yaml
+
+version: "3"
+services:
+  hub:
+    image: selenium/hub:3.14
+    ports:
+      - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:3.14
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+  firefox:
+    image: selenium/node-firefox:3.14
+    shm_size: '1gb'
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+Issue docker-compose up command to bring up selenium grid & docker-compose down for bringing it down.
+
+Non-docker Users:
+
+Download this jar and move it to a separate directory called 'grid'.
+
+Open 2 terminal/command line windows
+
+Navigate to the 'gird' directory.
+
+Issue this command in the first terminal/command line window.
+
+java -jar selenium-server-standalone-3.141.59.jar -role hub
+
+You would see a message - ' Selenium Grid hub is up and running' in few seconds
+
+Issue this command in the second terminal / command line. Update the chrome driver path before running the command.
+
+java -Dwebdriver.chrome.driver=/path/of/the/chromedriver -jar selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444/grid/register
+
+You should see this message - 'The node is registered to the hub and ready to use'
+
+You can access your grid in your browser.
+
+http://localhost:4444/grid/console
+
+Please do note that WebDriver will be using http://localhost:4444/wd/hub as the grid URL.
+
+Fullscreen
+Expanded view
+Go to Previous lecture50. Executing Tests In Dev / QA / STG /
+docker compose up
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import org.junit.runner.RunWith;
+
+@CucumberOptions(
+        features = "classpath:features",
+        plugin = {
+                "pretty",
+                "html:target/cucumber-report.html"}
+)
+@RunWith(Cucumber.class)
+public class CucumberRunner {
+}
+
+<configuration>
+  <parallel>classes</parallel>
+  <threadCountClasses>2</threadCountClasses>
+  <includes>
+    <include>com.udemy.spring.springselenium.CucumberRunner</include>
+  </includes>
+</configuration>

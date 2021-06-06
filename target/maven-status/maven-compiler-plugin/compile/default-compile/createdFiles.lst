@@ -1,0 +1,8 @@
+com/automation/selenium/selenium/Base.class
+com/automation/selenium/config/FakerConfig.class
+com/automation/selenium/selenium/page/GoogleSearch.class
+com/automation/selenium/selenium/util/ScreenShot.class
+com/automation/selenium/config/WebDriverConfig.class
+com/automation/selenium/selenium/page/SearchPage.class
+com/automation/selenium/selenium/page/SearchResult.class
+com/automation/selenium/SeleniumApplication.class
